@@ -15,6 +15,25 @@ namespace PlantShop.Controllers
         public DatabaseContext db { get; set; } = new DatabaseContext();
 
 
+        //post/add new location
+        [HttpPost]
+        public Location CreateALocation(Location item)
+        {
+            db.Locations.Add(item);
+            db.SaveChanges();
+            return item;
+        }
+
+
+        //get all locations
+        [HttpGet]
+        public List<Location> GetAllLocations()
+        {
+            var locations = db.Locations.OrderBy(m => m.Address);
+            return locations.ToList();
+        }
+
+
         //get all plants in inventory
         [HttpGet]
         public List<Plant> GetAllPlants()
